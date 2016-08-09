@@ -14,7 +14,7 @@ public:
 
 	bool numbDiceCheck(int diNum);
 
-	dice *startGame(int diceNum);
+	//dice *startGame(int diceNum);
 private:
 	int gameState;
 	//gameState can be Waiting(0) or Playing(1)
