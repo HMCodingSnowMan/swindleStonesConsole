@@ -38,7 +38,7 @@ gameEngine::gameEngine()
 	int a = 0;
 	
 	while (a < numberOfDice) {
-		
+		cout << "hi" << endl;
 		a++;
 	}
 	
@@ -79,18 +79,18 @@ bool gameEngine::numbDiceCheck(int diNum)
 		return false;
 }
 
-dice* gameEngine::startGame(int diceNum)
-{
-	if (diceNum == 2) {
-		dice *DiceGame[2];
-	}
-	else if (diceNum == 3) {
-		dice *DiceGame[3];
-	}
-	else if (diceNum == 4) {
-		dice *DiceGame[4];
-	}
-	else
-		dice *DiceGame[5];
-
-}
+//dice* gameEngine::startGame(int diceNum)
+//{
+//	if (diceNum == 2) {
+//		dice *DiceGame[2];
+//	}
+//	else if (diceNum == 3) {
+//		dice *DiceGame[3];
+//	}
+//	else if (diceNum == 4) {
+//		dice *DiceGame[4];
+//	}
+//	else
+//		dice *DiceGame[5];
+//
+//}
