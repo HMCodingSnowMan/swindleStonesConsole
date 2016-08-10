@@ -1,4 +1,7 @@
 #pragma once
+#include "dice.h"
+#include <vector>
+
 class gameEngine
 {
 public:
@@ -13,6 +16,8 @@ public:
 	int getGameState();
 
 	bool numbDiceCheck(int diNum);
+
+	std::vector<Dice*> startGame(int diceNum);
 
 	//dice *startGame(int diceNum);
 private:

@@ -7,39 +7,39 @@
 using namespace std;
 
 
-dice::dice()
+Dice::Dice()
 {
 	maxValue = 6;
 	diceRoll();
 }
 
-dice::dice( int a)
+Dice::Dice( int a)
 {
 	maxValue = a;
 	diceRoll();
 }
 
-dice::~dice()
+Dice::~Dice()
 {
 	diceRoll();
 	maxValue = 6;
 }
 
-void dice::setMaxValue(int value) {
+void Dice::setMaxValue(int value) {
 	maxValue = value;
 }
 
-int dice::getDiceValue()
+int Dice::getDiceValue()
 {
 	return diceValue;
 }
 
-int dice::getMaxValue()
+int Dice::getMaxValue()
 {
 	return maxValue;
 }
 
-void dice::diceRoll() 
+void Dice::diceRoll() 
 {
 	diceValue = 1 + (rand() % getMaxValue());
 }

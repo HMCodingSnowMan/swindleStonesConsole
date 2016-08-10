@@ -1,11 +1,11 @@
 #pragma once
-class dice
+class Dice
 {
 public:
 
-	dice();
-	dice(int a);
-	~dice();
+	Dice();
+	Dice(int a);
+	~Dice();
 	void diceRoll();
 	void setMaxValue(int value);
 	int getDiceValue();

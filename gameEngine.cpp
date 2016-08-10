@@ -1,5 +1,5 @@
 #include "gameEngine.h"
-#include "dice.h"
+//#include "dice.h"
 #include <windows.h>
 #include <iostream>
 #include <string>
@@ -36,12 +36,18 @@ gameEngine::gameEngine()
 	setGameState(1);
 	cout << getGameState() << endl << flush;
 	int a = 0;
-	
-	while (a < numberOfDice) {
+
+	vector<Dice*> player1 = startGame(numberOfDice);
+	//cout << player1.capacity() << endl;
+	//cout << player1.size() << endl;
+
+	for (int i = 0; i < player1.size(); i++) {
+		cout << "Player One rolled: " << (*player1[i]).getDiceValue() << endl;
+	}
+	/*while (a < numberOfDice) {
 		cout << "hi" << endl;
 		a++;
-	}
-	
+	}*/
 
 }
 
@@ -79,18 +85,15 @@ bool gameEngine::numbDiceCheck(int diNum)
 		return false;
 }
 
-//dice* gameEngine::startGame(int diceNum)
-//{
-//	if (diceNum == 2) {
-//		dice *DiceGame[2];
-//	}
-//	else if (diceNum == 3) {
-//		dice *DiceGame[3];
-//	}
-//	else if (diceNum == 4) {
-//		dice *DiceGame[4];
-//	}
-//	else
-//		dice *DiceGame[5];
-//
-//}
+vector<Dice*> gameEngine::startGame(int diceNum)
+{
+	vector<Dice*> DiceGame;
+	DiceGame.reserve(diceNum);
+
+	for (int i = 0; i < diceNum; i++) {
+		Dice *dice = new Dice(4);
+		DiceGame.push_back(dice);
+	}
+
+	return DiceGame;
+}
