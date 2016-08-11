@@ -8,7 +8,8 @@ using namespace std;
 
 
 int main() {
-	gameEngine Game;
+	GameEngine Game;
+	Game.startGame(Game.getNumberOfDice());
 	/*dice di;
 	dice dic(100);
 	int i;*/
