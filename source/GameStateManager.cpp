@@ -4,6 +4,7 @@
 
 GameStateManager::GameStateManager()
 {
+	GameStates gameState = START_MENU;
 }
 
 
