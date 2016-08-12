@@ -13,13 +13,42 @@ GameStateManager::~GameStateManager()
 	GameStates gameState = GameStates::START_MENU;
 }
 
-void GameStateManager::setGameState(enum GameStates a)//setGameState doesn't work
+string GameStateManager::getGameStateString()
 {
-	GameStates gameStates = a;
+	switch (gameState) {
+	case (GameStates::START_MENU): return "Start Menu";
+	case (GameStates::GAME_INIT): return "Game Init";
+	case (GameStates::ROLL_DICE): return "Rolling Dice";
+	case (GameStates::COINFLIP): return "Flipping Coin!";
+	case (GameStates::TURN): return "Turn!";
+	case (GameStates::CALL): return "Call it!";
+	case (GameStates::RESULT): return "Result is!";
+	case (GameStates::RETRY): return "Retry?";
+	case (GameStates::GAMEOVER): return "GameOver!";
+	default: return  "ERROR";
+
+	}
 }
 
-enum GameStateManager::getGameState()//GAmeStateManager Can't set up.
+void GameStateManager::setGameState(GameStates a)
 {
-	return GameStates.gameState;
+
+	if (gameState == a)
+		return;
+	gameState = a;
 }
+
+GameStateManager::GameStates GameStateManager::getGameState()
+{
+	return gameState;
+}
+
+
+
+//void GameStateManager::GameStates GameStateManager::setGameState(GameStates a)
+//{
+//	if (gameState == a)
+//		return;
+//	gameState = a;
+//}
 
