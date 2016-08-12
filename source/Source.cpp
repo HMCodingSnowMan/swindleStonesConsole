@@ -1,38 +1,51 @@
 #include <iostream>
-//#include "dice.h"
+#include "dice.h"
 #include <windows.h>
 #include "gameEngine.h"
+#include "Coin.h"
 
 using namespace std;
 
 
 
 int main() {
-	GameEngine Game;
-	Game.startGame(Game.getNumberOfDice());
-	/*dice di;
-	dice dic(100);
-	int i;*/
-	//SetColor(RED);
-	//cout << "please enter poop";
-	//cin >> i;
-	//SetColor(BLUE);
-	//cout << "hi hans your number is" << i << endl;
-	//int diceV = di.getDiceValue();
-	//SetColor(GREEN);
-	//cout << "dice value is "  << diceV << endl;
-	//int diceM = di.getMaxValue();
-	//SetColor(GRAY);
-	//cout << "max dice is " << diceM << endl;
+	//GameEngine Game;
+	
+	//GameStateManager gsm;
+	//gsm.setGameState(GameStateManager::GameStates::GAME_INIT);
+	//cout << gsm.getGameState() << endl;
+	//gsm.setGameState(GameStateManager::GameStates::ROLL_DICE);
+	//cout << gsm.getGameState() << endl;
+	//gsm.setGameState(GameStateManager::GameStates::COINFLIP);
+	//cout << gsm.getGameState() << endl;
+	//gsm.setGameState(GameStateManager::GameStates::GAMEOVER);
+	//cout << gsm.getGameState() << endl;
 
-	//int ddiceV = dic.getDiceValue();
-	//SetColor(TEAL);
-	//cout << "dice value is " << ddiceV << endl;
-	//int ddiceM = dic.getMaxValue();
-	//SetColor(PINK);
-	//cout << "max dice is " << ddiceM << endl;
+	//Coin cn;
+	//
+	//cout << "the coin value is" << cn.getCoinValue() << endl;
+	//cn.coinFlip();
+	//cout << "the coin value is" << cn.getCoinValue() << endl;
+	//cn.coinFlip();
+	//cout << "the coin value is" << cn.getCoinValue() << endl;
+	//cn.coinFlip();
+	//cout << "the coin value is" << cn.getCoinValue() << endl;
+	//cn.coinFlip();
+	//cout << "the coin value is" << cn.getCoinValue() << endl;
+	//cn.coinFlip();
+	//cout << "the coin value is" << cn.getCoinValue() << endl;
+	//cn.coinFlip();
+	//cout << "the coin value is" << cn.getCoinValue() << endl;
+	//cn.coinFlip();
+	//cout << "the coin value is" << cn.getCoinValue() << endl;
+	//cn.coinFlip();
+	//cout << "the coin value is" << cn.getCoinValue() << endl;
+	//cn.coinFlip();
+	//cout << "the coin value is" << cn.getCoinValue() << endl;
 
-
+	Dice di;
+	cout << di.getDiceValue() << endl;
+	cout << di.getMaxValue() << endl;
 	return 0;
 
 }
