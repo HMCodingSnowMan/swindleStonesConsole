@@ -1,10 +1,10 @@
 #include "gameEngine.h"
-#include "dice.h"
-#include <windows.h>
-#include <iostream>
-#include <string>
 
-using namespace std;
+
+
+
+
+
 
 HANDLE hCon;
 
@@ -17,13 +17,15 @@ void SetColor(Color c) {
 }
 
 
-gameEngine::gameEngine()
+GameEngine::GameEngine() //prompts user for menu and stuff
 {
-	setGameState(0);
-	cout << getGameState() << endl;
+	gsm.setGameState(GameStateManager::GameStates::START_MENU);
+	cout << gsm.getGameStateString() << endl;
+
 	SetColor(DARKBLUE);
-	
 	cout << "Welcome to the SwindleStones! I'm gonna take your money!" << endl;
+	gsm.setGameState(GameStateManager::GameStates::GAME_INIT);
+	cout << gsm.getGameStateString() << endl;
 	SetColor(DARKGREEN);
 	
 	cout << "We can have a quick game with 2 dice, a long game with 5 dice, or anything inbetween" << endl;
@@ -32,45 +34,47 @@ gameEngine::gameEngine()
 		cout << "We do not play with that many dice. Try again. How many dice would you like to play with?" << endl;
 		cin >> numberOfDice;
 	}
+
+
+
+	SetColor(RED);
 	cout << "excellent lets play the game with " << getNumberOfDice() << " dice" << endl;
-	setGameState(1);
-	cout << getGameState() << endl << flush;
-	int a = 0;
-	
-	while (a < numberOfDice) {
-		cout << "hi" << endl;
-		a++;
-	}
-	
+
+	vector<Dice> pDice;
+	gsm.setGameState(GameStateManager::GameStates::ROLL_DICE);
+	cout << gsm.getGameStateString() << endl;
+	SetColor(GREEN);
+	rollTheDice(pDice);
+
 
 }
 
 
-gameEngine::~gameEngine()
+GameEngine::~GameEngine()
 {
 }
 
-void gameEngine::setNumberOfDice(int numDice)
+void GameEngine::setNumberOfDice(int numDice)
 {
 	numberOfDice = numDice;
 }
 
-int gameEngine::getNumberOfDice()
+int GameEngine::getNumberOfDice()
 {
 	return numberOfDice;
 }
 
-void gameEngine::setGameState(int state)
-{
-	gameState = state;
-}
+//void GameEngine::setGameState(int state)
+//{
+//	gameState = state;
+//}
+//
+//int GameEngine::getGameState()
+//{
+//	return gameState;
+//}
 
-int gameEngine::getGameState()
-{
-	return gameState;
-}
-
-bool gameEngine::numbDiceCheck(int diNum)
+bool GameEngine::numbDiceCheck(int diNum)
 {
 	if ((diNum >= 2) && (diNum <= 5)) {
 		return true;
@@ -79,18 +83,41 @@ bool gameEngine::numbDiceCheck(int diNum)
 		return false;
 }
 
-//dice* gameEngine::startGame(int diceNum)
-//{
-//	if (diceNum == 2) {
-//		dice *DiceGame[2];
-//	}
-//	else if (diceNum == 3) {
-//		dice *DiceGame[3];
-//	}
-//	else if (diceNum == 4) {
-//		dice *DiceGame[4];
-//	}
-//	else
-//		dice *DiceGame[5];
-//
-//}
+void GameEngine::rollTheDice(vector<Dice>& myDiceSet)
+{
+	cout << "I'll roll the dice!" << endl;
+
+	unsigned int k = numberOfDice;
+
+	for (int i = 0; i < numberOfDice; i++) {
+		
+		Dice newDice = Dice(4);
+		myDiceSet.push_back(newDice);
+		cout << myDiceSet[i].getDiceValue() << i << " the dice value in I loop" << endl;
+	}
+	
+	for (unsigned int j = 0; j < k; j++) {
+		//print the dice value!
+		cout << myDiceSet[j].getDiceValue() << j << " the dice value " << endl;
+		cout << myDiceSet[j].getMaxValue() << j << " the max value " << endl;
+
+	}
+	
+
+}
+
+
+
+/*
+vector<Dice*> gameEngine::startGame(int diceNum)
+{
+	vector<Dice*> DiceGame;
+	DiceGame.reserve(diceNum);
+
+	for (int i = 0; i < diceNum; i++) {
+		Dice *dice = new Dice(4);
+		DiceGame.push_back(dice);
+	}
+
+	return DiceGame;
+*/
