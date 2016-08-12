@@ -40,11 +40,14 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 	SetColor(RED);
 	cout << "excellent lets play the game with " << getNumberOfDice() << " dice" << endl;
 
-	vector<Dice> pDice;
+	
 	gsm.setGameState(GameStateManager::GameStates::ROLL_DICE);
 	cout << gsm.getGameStateString() << endl;
 	SetColor(GREEN);
-	rollTheDice(pDice);
+	rollTheDice(p1Dice);
+	rollTheDice(p2Dice);
+	cout << p1Dice[1].getDiceValue()<< endl;
+	
 
 
 }
@@ -83,7 +86,7 @@ bool GameEngine::numbDiceCheck(int diNum)
 		return false;
 }
 
-void GameEngine::rollTheDice(vector<Dice>& myDiceSet)
+vector<Dice> GameEngine::rollTheDice(vector<Dice>& myDiceSet)
 {
 	cout << "I'll roll the dice!" << endl;
 
@@ -91,9 +94,11 @@ void GameEngine::rollTheDice(vector<Dice>& myDiceSet)
 
 	for (int i = 0; i < numberOfDice; i++) {
 		
-		Dice newDice = Dice(4);
+		Dice newDice = Dice();
 		myDiceSet.push_back(newDice);
 		cout << myDiceSet[i].getDiceValue() << i << " the dice value in I loop" << endl;
+		myDiceSet[i].setMaxValue(5);
+		cout << myDiceSet[i].getMaxValue() << i << " the Max value in I loop" << endl;
 	}
 	
 	for (unsigned int j = 0; j < k; j++) {
@@ -102,7 +107,7 @@ void GameEngine::rollTheDice(vector<Dice>& myDiceSet)
 		cout << myDiceSet[j].getMaxValue() << j << " the max value " << endl;
 
 	}
-	
+	return myDiceSet;
 
 }
 
