@@ -5,11 +5,15 @@
 #include <iostream>
 #include "GameStateManager.h"
 #include <string>
+#include "Coin.h"
 
 using namespace std;
 
 class GameEngine
 {
+	vector<Dice> p1Dice;
+	vector<Dice> p2Dice;
+	Coin coin;
 public:
 	GameStateManager gsm;
 
@@ -27,7 +31,7 @@ public:
 
 	bool numbDiceCheck(int diNum);
 
-	void rollTheDice(vector<Dice>&);//ty jeff
+	vector<Dice> rollTheDice(vector<Dice>&);//ty jeff
 
 private:
 	//int gameState;
