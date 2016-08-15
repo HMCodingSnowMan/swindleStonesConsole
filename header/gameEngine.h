@@ -33,10 +33,12 @@ public:
 
 	vector<Dice> rollTheDice(vector<Dice>&);//ty jeff
 
+	int coinCheck(string choice);
+
 private:
 	//int gameState;
 	//gameState can be Waiting(0) or Playing(1)
-	int numberOfDice;
+	unsigned int numberOfDice;
 	//number of dice can be between 1 and 5
 	string gState;
 	
