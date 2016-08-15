@@ -46,7 +46,20 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 	SetColor(GREEN);
 	rollTheDice(p1Dice);
 	rollTheDice(p2Dice);
-	cout << p1Dice[1].getDiceValue()<< endl;
+	
+	gsm.setGameState(GameStateManager::GameStates::COINFLIP);
+	cout << gsm.getGameStateString() << " time to flip the coin! " << endl;
+	cout << "what do you want to call? Heads or tails?" << endl;
+	string choice = "";
+	cin >> choice;
+	while (coinCheck(choice) == 1)
+	{
+		cout << "that wasn't one of the choices! Please enter heads or tails" << endl;
+		cin >> choice;
+	} 
+
+
+	
 	
 
 
@@ -90,25 +103,57 @@ vector<Dice> GameEngine::rollTheDice(vector<Dice>& myDiceSet)
 {
 	cout << "I'll roll the dice!" << endl;
 
-	unsigned int k = numberOfDice;
+	unsigned int k;
 
-	for (int i = 0; i < numberOfDice; i++) {
+	for (k = 0; k < numberOfDice; k++) {
 		
 		Dice newDice = Dice();
 		myDiceSet.push_back(newDice);
-		cout << myDiceSet[i].getDiceValue() << i << " the dice value in I loop" << endl;
-		myDiceSet[i].setMaxValue(5);
-		cout << myDiceSet[i].getMaxValue() << i << " the Max value in I loop" << endl;
+		//cout << myDiceSet[i].getDiceValue() << i << " the dice value in I loop" << endl;
+		myDiceSet[k].setMaxValue(5);
+		//cout << myDiceSet[i].getMaxValue() << i << " the Max value in I loop" << endl;
 	}
 	
-	for (unsigned int j = 0; j < k; j++) {
+	//for (unsigned int j = 0; j < k; j++) {
 		//print the dice value!
-		cout << myDiceSet[j].getDiceValue() << j << " the dice value " << endl;
-		cout << myDiceSet[j].getMaxValue() << j << " the max value " << endl;
+		//cout << myDiceSet[j].getDiceValue() << j << " the dice value " << endl;
+		//cout << myDiceSet[j].getMaxValue() << j << " the max value " << endl;
 
-	}
+	//}
 	return myDiceSet;
 
+}
+
+int GameEngine::coinCheck(string choice)
+{
+	Coin c;
+	int pass;
+	for (unsigned int s = 0; s < choice.length(); s++) {
+		choice[s] = tolower(choice[s]);
+	}
+	if (choice.compare("heads") == 0) {
+		if (c.coinMatch(choice)) {
+			cout << "you got it right! with heads" << endl;
+		}
+		//cout << "it passed! with heads;" << endl;
+		else
+			cout << "you got it wrong with heads" << endl;
+		return pass = 0;
+		
+	}
+	else if (choice.compare("tails") == 0) {
+		if (c.coinMatch(choice)) {
+			cout << "you got it right! with tails" << endl;
+		}
+		//cout << "it passed! with tails;" << endl;
+		else
+			cout << "you got it wrong with tails" << endl;
+		return pass = 0;
+		
+
+	}
+	else
+		return pass = 1;
 }
 
 
