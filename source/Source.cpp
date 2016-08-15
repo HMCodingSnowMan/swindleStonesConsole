@@ -9,7 +9,7 @@ using namespace std;
 
 
 int main() {
-	//GameEngine Game;
+	GameEngine Game;
 	
 	//GameStateManager gsm;
 	//gsm.setGameState(GameStateManager::GameStates::GAME_INIT);
@@ -22,30 +22,17 @@ int main() {
 	//cout << gsm.getGameState() << endl;
 
 	//Coin cn;
-	//
-	//cout << "the coin value is" << cn.getCoinValue() << endl;
-	//cn.coinFlip();
-	//cout << "the coin value is" << cn.getCoinValue() << endl;
-	//cn.coinFlip();
-	//cout << "the coin value is" << cn.getCoinValue() << endl;
-	//cn.coinFlip();
-	//cout << "the coin value is" << cn.getCoinValue() << endl;
-	//cn.coinFlip();
-	//cout << "the coin value is" << cn.getCoinValue() << endl;
-	//cn.coinFlip();
-	//cout << "the coin value is" << cn.getCoinValue() << endl;
-	//cn.coinFlip();
-	//cout << "the coin value is" << cn.getCoinValue() << endl;
-	//cn.coinFlip();
-	//cout << "the coin value is" << cn.getCoinValue() << endl;
-	//cn.coinFlip();
-	//cout << "the coin value is" << cn.getCoinValue() << endl;
-	//cn.coinFlip();
-	//cout << "the coin value is" << cn.getCoinValue() << endl;
 
-	Dice di;
-	cout << di.getDiceValue() << endl;
-	cout << di.getMaxValue() << endl;
+	//for (int i = 0; i < 20; i++) {
+	//	cn.coinFlip();
+	//	cout << "the coin value is " << cn.getCoinValue() << endl;
+	//	
+	//}
+
+
+	//Dice di;
+	//cout << di.getDiceValue() << endl;
+	//cout << di.getMaxValue() << endl;
 	return 0;
 
 }
