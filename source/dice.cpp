@@ -9,16 +9,16 @@ using namespace std;
 
 Dice::Dice()
 {
-	maxValue = 10;
-	diceRoll();
+	setMaxValue(4);
+	setDiceValue(4);
 	
 	
 }
 
 Dice::Dice( int a)
 {
-	maxValue = a;
-	diceValue = a;
+	setMaxValue(4);
+	setDiceValue(4);
 }
 
 Dice::~Dice()
@@ -27,6 +27,11 @@ Dice::~Dice()
 
 void Dice::setMaxValue(int value) {
 	maxValue = value;
+}
+
+void Dice::setDiceValue(int value)
+{
+	diceValue = value;
 }
 
 int Dice::getDiceValue()
