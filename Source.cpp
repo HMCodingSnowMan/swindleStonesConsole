@@ -3,6 +3,8 @@
 #include <windows.h>
 #include "gameEngine.h"
 #include "Coin.h"
+#include "Player.h"
+
 
 using namespace std;
 
@@ -27,6 +29,15 @@ int main() {
 	//	cn.coinFlip();
 	//	cout << "the coin value is " << cn.getCoinValue() << endl;
 		
+	//}
+
+	//Player p1;
+	//p1.setNumberOfDice(5);
+	//cout << p1.getNumberOfDice() << endl;
+	//p1.rollTheDice();
+	//for (int i = 0; i < p1.getNumberOfDice(); i++)
+	//{
+	//	cout << p1.pDice[i].getDiceValue() << endl;
 	//}
 
 

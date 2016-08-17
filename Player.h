@@ -10,6 +10,7 @@ using namespace std;
 class Player
 {
 	
+
 public:
 
 	vector<Dice> pDice;
@@ -17,18 +18,22 @@ public:
 	Player();
 	~Player();
 
-	void setNumberOfDice(int numDice);
+	Player(string name);
 
+	void setNumberOfDice(int numDice);
 	int getNumberOfDice();
 
 	void setFirstTurn(bool turn);
-
 	bool getFirstTurn();
 
-	vector<Dice> rollTheDice();
+	void setPName(string name);
+	string getPName();
+
+	vector<Dice> rollTheDice();//ty jeff
 
 private:
-	unsigned int numberOfDice;
+	int numberOfDice;
 	bool firstTurn;
+	string pName;
 };
 

@@ -6,9 +6,13 @@ Player::Player()
 {
 }
 
-
 Player::~Player()
 {
+}
+
+Player::Player(string name)
+{
+	pName = name;
 }
 
 void Player::setNumberOfDice(int numDice)
@@ -31,17 +35,26 @@ bool Player::getFirstTurn()
 	return firstTurn;
 }
 
+void Player::setPName(string name)
+{
+	pName = name;
+}
+
+string Player::getPName()
+{
+	return pName;
+}
+
 vector<Dice> Player::rollTheDice()
 {
 	cout << "I'll roll the dice!" << endl;
 
-	unsigned int k;
-
-	for (k = 0; k < numberOfDice; k++) {
+	
+	for (int k = 0; k < numberOfDice; k++) {
 
 		Dice newDice = Dice();
 		pDice.push_back(newDice);
-		//cout << myDiceSet[i].getDiceValue() << i << " the dice value in I loop" << endl;
+		//cout << pDice[k].getDiceValue() << k << " the dice value in I loop" << endl;
 		pDice[k].setMaxValue(4);
 		pDice[k].diceRoll();
 	}
