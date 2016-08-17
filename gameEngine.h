@@ -47,6 +47,10 @@ public:
 	void playerDiceInfo(Player p);
 	bool logicCheck(int ints,int vDice);
 	void logicResult(bool logic, Player p, Player q);
+	void firstTurnGoes(Player p);
+	void turnOne();//if Player is First
+	void turnOneC();//if Computer goes First
+	void turnPlus();
 
 	
 private:
@@ -54,6 +58,9 @@ private:
 	bool firstTurn;
 	//gameState can be Waiting(0) or Playing(1)
 	unsigned int gameDice;
+	char e;
+	int instances = 0;
+	int valueDice = 0;
 	//unsigned int numberOfDice2;
 	//number of dice can be between 1 and 5
 	string gState;

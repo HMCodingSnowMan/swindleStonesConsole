@@ -72,42 +72,24 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 	gsm.setGameState(GameStateManager::GameStates::TURN);
 	SetColor(BLUE);
 
+
+
+
 	//this sets up the dice and logic check
 	cout << gsm.getGameStateString() << "it's time to start the turns!" << endl << flush;
 	char e;
-	int instances=0;
-	int valueDice=0;
+
 	setLogicArray(p1);
 	setLogicArray(p2);
 	cout << "you have ";
 	playerDiceInfo(p1);
 	cout << endl;
 	
+	//this sets up the first turn! either the comp or the player will go first!
+	firstTurnGoes(p1);
 	
 	
-	while (gsm.getGameStateString().compare("Turn") == 0) {
-
-		cout << "would you like to Raise(r) or Call(c)?" << endl;
-		cin >> e;
-		switch (e) {
-		case 'r':
-			cout << "how many instances of the dice are you thinking of?" << endl;
-			cin >> instances;
-			cout << "what value of dice did you want to use? " << endl;
-			cin >> valueDice;
-			gsm.setGameState(GameStateManager::GameStates::RESULT);
-			break;
-		case 'c':
-			cout << "CALL time to see the results" << endl;
-			gsm.setGameState(GameStateManager::GameStates::RESULT);
-			logicCheck(instances, valueDice);
-			break;
-		default:
-			cout << "that wasn't an option! try again!" << endl;
-			gsm.setGameState(GameStateManager::GameStates::RESULT);
-			break;
-		}
-	}
+	//while (gsm.getGameStateString().compare("Turn") == 0) {
 
 }
 
@@ -126,35 +108,7 @@ int GameEngine::getNumberOfgDice()
 	return gameDice;
 }
 
-//void GameEngine::setNumberOfDice2(int numDice)
-//{
-//	numberOfDice2 = numDice;
-//}
-//
-//int GameEngine::getNumberOfDice2()
-//{
-//	return numberOfDice2;
-//}
 
-//void GameEngine::setGameState(int state)
-//{
-//	gameState = state;
-//}
-//
-//int GameEngine::getGameState()
-//{
-//	return gameState;
-//}
-
-//void GameEngine::setFirstTurn(bool turn)
-//{
-//	firstTurn = turn;
-//}
-//
-//bool GameEngine::getFirstTurn()
-//{
-//	return firstTurn;
-//}
 
 bool GameEngine::numbDiceCheck(int diNum)
 {
@@ -165,25 +119,7 @@ bool GameEngine::numbDiceCheck(int diNum)
 		return false;
 }
 
-//vector<Dice> GameEngine::rollTheDice(vector<Dice>& myDiceSet)
-//{
-//	cout << "I'll roll the dice!" << endl;
-//
-//	unsigned int k;
-//
-//	for (k = 0; k < numberOfDice; k++) {
-//		
-//		Dice newDice = Dice();
-//		myDiceSet.push_back(newDice);
-//		//cout << myDiceSet[i].getDiceValue() << i << " the dice value in I loop" << endl;
-//		myDiceSet[k].setMaxValue(4);
-//		myDiceSet[k].diceRoll();
-//	}
-//	
-//
-//	return myDiceSet;
-//
-//}
+
 
 int GameEngine::coinCheck(string choice)
 {
@@ -244,6 +180,52 @@ void GameEngine::logicResult(bool logic, Player p, Player q)
 	{
 		p.setNumberOfDice(p.getNumberOfDice() - 1);
 	}
+}
+
+void GameEngine::firstTurnGoes(Player p)
+{
+	if (p.getFirstTurn()) {
+		turnOne();
+	}
+	else
+		turnOneC();
+}
+
+void GameEngine::turnOne()
+{
+	cout << "what would you like to bet?" << endl;
+	cout << "what dice value are you betting" << endl;
+	cin >> valueDice;
+	cout << "how many of that dice are you betting?" << endl;
+	cin >> instances;
+}
+
+void GameEngine::turnOneC()
+{
+	cout << "I'm cheating I'm going to bet " << logicArray[3] << " 4" << endl;
+	instances = logicArray[3];
+	valueDice = 4;
+}
+
+void GameEngine::turnPlus()
+{
+		cout << "would you like to Raise(r) or Call(c)?" << endl;
+		cin >> e;
+		switch (e) {
+		case 'r':
+			cout << "how many instances of the dice are you thinking of?" << endl;
+			cin >> instances;
+			cout << "what value of dice did you want to use? " << endl;
+			cin >> valueDice;
+			break;
+		case 'c':
+			cout << "CALL time to see the results" << endl;
+			logicCheck(instances, valueDice);
+			break;
+		default:
+			cout << "that wasn't an option! try again!" << endl;
+			break;
+		}
 }
 
 
