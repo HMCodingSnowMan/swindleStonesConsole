@@ -62,27 +62,32 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 	} 
 	if (coin.coinMatch(choice)) {
 		cout << "you get to go first!" << endl;
+		p1.setFirstTurn(true);
 	}
 	else {
 		cout << "you get to go second!" << endl;
+		p1.setFirstTurn(false);
 	}
 	
 	gsm.setGameState(GameStateManager::GameStates::TURN);
 	SetColor(BLUE);
+
+	//this sets up the dice and logic check
 	cout << gsm.getGameStateString() << "it's time to start the turns!" << endl << flush;
 	char e;
 	int instances=0;
 	int valueDice=0;
-	cout << "you have";
-	for (int i = 0; i < p1.getNumberOfDice(); i++) {
-		cout << p1.pDice[i].getDiceValue() << " ";
-		logicArray[p1.pDice[i].getDiceValue() - 1] = logicArray[p1.pDice[i].getDiceValue() - 1] + 1;
-		logicArray[p2.pDice[i].getDiceValue() - 1] = logicArray[p2.pDice[i].getDiceValue() - 1] + 1;
-	}
+	setLogicArray(p1);
+	setLogicArray(p2);
+	cout << "you have ";
+	playerDiceInfo(p1);
 	cout << endl;
+	
+	
+	
 	while (gsm.getGameStateString().compare("Turn") == 0) {
 
-		cout << endl << "would you like to Raise(r) or Call(c)?" << endl;
+		cout << "would you like to Raise(r) or Call(c)?" << endl;
 		cin >> e;
 		switch (e) {
 		case 'r':
@@ -103,14 +108,6 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 			break;
 		}
 	}
-	//for (int i = 0; i < 4; i++) {
-	//	SetColor(RED);
-	//	cout << "the dice values are" << p1.pDice[i].getDiceValue() << endl;
-	//	SetColor(GREEN);
-	//	cout << "the logic array has" << logicArray[i] << endl;
-	//}
-	//
-	
 
 }
 
@@ -210,29 +207,46 @@ int GameEngine::coinCheck(string choice)
 		return pass = 1;
 }
 
-void GameEngine::logicCheck(int ints, int vDice)
+void GameEngine::setLogicArray(Player p)
+{
+	for (int i = 0; i < p.getNumberOfDice(); i++) {
+		logicArray[p.pDice[i].getDiceValue() - 1] = logicArray[p.pDice[i].getDiceValue() - 1] + 1;
+	}
+}
+
+void GameEngine::playerDiceInfo(Player p)
+{
+	SetColor(GREEN);
+	for (int i = 0; i < p.getNumberOfDice(); i++) {
+		cout << p.pDice[i].getDiceValue() << " ";
+	}
+}
+
+bool GameEngine::logicCheck(int ints, int vDice)
 {
 	if (logicArray[vDice - 1] >= ints) {
 		cout << "good guess! the other player loses dice" << endl;
+		return true;
 	}
 	else
+	{
 		cout << "Wrong! you lose a dice!" << endl;
+		return false;
+	}
+}
+
+void GameEngine::logicResult(bool logic, Player p, Player q)
+{
+	if (logic) {
+		q.setNumberOfDice(q.getNumberOfDice() - 1);
+	}
+	else
+	{
+		p.setNumberOfDice(p.getNumberOfDice() - 1);
+	}
 }
 
 
 
 
 
-/*
-vector<Dice*> gameEngine::startGame(int diceNum)
-{
-	vector<Dice*> DiceGame;
-	DiceGame.reserve(diceNum);
-
-	for (int i = 0; i < diceNum; i++) {
-		Dice *dice = new Dice(4);
-		DiceGame.push_back(dice);
-	}
-
-	return DiceGame;
-*/

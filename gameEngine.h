@@ -43,7 +43,10 @@ public:
 
 	int coinCheck(string choice);
 	//void raise(vector<Dice>& pdice, int ints, int vDice);
-	void logicCheck(int ints,int vDice);
+	void setLogicArray(Player p);
+	void playerDiceInfo(Player p);
+	bool logicCheck(int ints,int vDice);
+	void logicResult(bool logic, Player p, Player q);
 
 	
 private:
