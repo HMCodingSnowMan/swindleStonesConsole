@@ -9,14 +9,26 @@ using namespace std;
 
 class Player
 {
-	vector<Dice> p1Dice
+	
 public:
+
+	vector<Dice> pDice;
+
 	Player();
 	~Player();
 
-	vector<Dice> rollTheDice(vector<Dice>&);//ty jeff
+	void setNumberOfDice(int numDice);
+
+	int getNumberOfDice();
+
+	void setFirstTurn(bool turn);
+
+	bool getFirstTurn();
+
+	vector<Dice> rollTheDice();
 
 private:
 	unsigned int numberOfDice;
+	bool firstTurn;
 };
 

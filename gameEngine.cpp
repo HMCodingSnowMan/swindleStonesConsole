@@ -29,17 +29,14 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 	SetColor(DARKGREEN);
 	
 	cout << "We can have a quick game with 2 dice, a long game with 5 dice, or anything inbetween" << endl;
-	cin >> numberOfDice;
+	cin >> gameDice;
 	while (numbDiceCheck(getNumberOfDice()) == false) {
 		cout << "We do not play with that many dice. Try again. How many dice would you like to play with?" << endl;
-		cin >> numberOfDice;
+		cin >> gameDice;
 	}
-
-
 
 	SetColor(RED);
 	cout << "excellent lets play the game with " << getNumberOfDice() << " dice" << endl;
-
 	
 	gsm.setGameState(GameStateManager::GameStates::ROLL_DICE);
 	cout << gsm.getGameStateString() << endl;
@@ -66,12 +63,13 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 	
 	gsm.setGameState(GameStateManager::GameStates::TURN);
 	SetColor(BLUE);
-	cout << gsm.getGameStateString() << "it's time to start the turns!" << endl << flush;
+	cout << gsm.getGameStateString() << "it's time to start the turns!" << endl;
 	char e;
 	int instances=0;
 	int valueDice=0;
-	for (int i = 0; i < p1Dice.size(); i++) {
-		cout << "you have" << p1Dice[i].getDiceValue() << " ";
+	SetColor(PINK);
+	for (int i = 0; i < p1.pDice.size(); i++) {
+		cout << "you have" << p1.pDice[i].getDiceValue() << " ";
 		logicArray[p1.pDice[i].getDiceValue() - 1] = logicArray[p1.pDice[i].getDiceValue() - 1] + 1;
 		logicArray[p2.pDice[i].getDiceValue() - 1] = logicArray[p2.pDice[i].getDiceValue() - 1] + 1;
 	}
@@ -98,9 +96,10 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 			break;
 		}
 	}
+
 	for (int i = 0; i < 4; i++) {
 		SetColor(RED);
-		cout << "the dice values are" << p1Dice[i].getDiceValue() << endl;
+		cout << "the dice values are" << p1.pDice[i].getDiceValue() << endl;
 		SetColor(GREEN);
 		cout << "the logic array has" << logicArray[i] << endl;
 	}
@@ -114,44 +113,14 @@ GameEngine::~GameEngine()
 {
 }
 
-void GameEngine::setNumberOfDice(int numDice)
+void GameEngine::setgDice(int di)
 {
-	numberOfDice = numDice;
+	gameDice = di;
 }
 
 int GameEngine::getNumberOfDice()
 {
-	return numberOfDice;
-}
-
-void GameEngine::setNumberOfDice2(int numDice)
-{
-	numberOfDice2 = numDice;
-}
-
-int GameEngine::getNumberOfDice2()
-{
-	return numberOfDice2;
-}
-
-//void GameEngine::setGameState(int state)
-//{
-//	gameState = state;
-//}
-//
-//int GameEngine::getGameState()
-//{
-//	return gameState;
-//}
-
-void GameEngine::setFirstTurn(bool turn)
-{
-	firstTurn = turn;
-}
-
-bool GameEngine::getFirstTurn()
-{
-	return firstTurn;
+	return gameDice;
 }
 
 bool GameEngine::numbDiceCheck(int diNum)
@@ -161,26 +130,6 @@ bool GameEngine::numbDiceCheck(int diNum)
 	}
 	else
 		return false;
-}
-
-vector<Dice> GameEngine::rollTheDice(vector<Dice>& myDiceSet)
-{
-	cout << "I'll roll the dice!" << endl;
-
-	unsigned int k;
-
-	for (k = 0; k < numberOfDice; k++) {
-		
-		Dice newDice = Dice();
-		myDiceSet.push_back(newDice);
-		//cout << myDiceSet[i].getDiceValue() << i << " the dice value in I loop" << endl;
-		myDiceSet[k].setMaxValue(4);
-		myDiceSet[k].diceRoll();
-	}
-	
-
-	return myDiceSet;
-
 }
 
 int GameEngine::coinCheck(string choice)
@@ -216,18 +165,3 @@ void GameEngine::logicCheck(int ints, int vDice)
 
 
 
-
-
-/*
-vector<Dice*> gameEngine::startGame(int diceNum)
-{
-	vector<Dice*> DiceGame;
-	DiceGame.reserve(diceNum);
-
-	for (int i = 0; i < diceNum; i++) {
-		Dice *dice = new Dice(4);
-		DiceGame.push_back(dice);
-	}
-
-	return DiceGame;
-*/

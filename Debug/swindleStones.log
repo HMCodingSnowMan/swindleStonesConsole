@@ -1,0 +1,4 @@
+﻿  gameEngine.cpp
+c:\users\hmprogram\desktop\swindlestonesconsole\swindlestonesconsole\gameengine.cpp(71): warning C4018: '<': signed/unsigned mismatch
+  swindleStones.vcxproj -> C:\Users\HMProgram\Desktop\swindleStonesConsole\swindleStonesConsole\Debug\swindleStones.exe
+  swindleStones.vcxproj -> C:\Users\HMProgram\Desktop\swindleStonesConsole\swindleStonesConsole\Debug\swindleStones.pdb (Full PDB)
