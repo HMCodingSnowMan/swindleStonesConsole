@@ -77,20 +77,21 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 
 	//this sets up the dice and logic check
 	cout << gsm.getGameStateString() << "it's time to start the turns!" << endl << flush;
-	char e;
+
 
 	setLogicArray(p1);
 	setLogicArray(p2);
 	cout << "you have ";
 	playerDiceInfo(p1);
 	cout << endl;
+	setGState(gsm.getGameStateString());
 	
 	//this sets up the first turn! either the comp or the player will go first!
 	firstTurnGoes(p1);
 	
 	
 	//while (gsm.getGameStateString().compare("Turn") == 0) {
-
+	turnPlus();
 }
 
 
@@ -106,6 +107,16 @@ void GameEngine::setNumberOfgDice(int numDice)
 int GameEngine::getNumberOfgDice()
 {
 	return gameDice;
+}
+
+void GameEngine::setGState(string state)
+{
+	gState = state;
+}
+
+string GameEngine::getGState()
+{
+	return gState;
 }
 
 
@@ -209,6 +220,7 @@ void GameEngine::turnOneC()
 
 void GameEngine::turnPlus()
 {
+	while (gsm.getGameStateString().compare("Turn")==0) {
 		cout << "would you like to Raise(r) or Call(c)?" << endl;
 		cin >> e;
 		switch (e) {
@@ -217,15 +229,18 @@ void GameEngine::turnPlus()
 			cin >> instances;
 			cout << "what value of dice did you want to use? " << endl;
 			cin >> valueDice;
+			cout << "the current bet is " << instances << " 's " << valueDice << endl;
 			break;
 		case 'c':
 			cout << "CALL time to see the results" << endl;
 			logicCheck(instances, valueDice);
+			gsm.setGameState(GameStateManager::GameStates::RESULT);
 			break;
 		default:
 			cout << "that wasn't an option! try again!" << endl;
 			break;
 		}
+	}
 }
 
 

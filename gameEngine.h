@@ -28,6 +28,9 @@ public:
 	void setNumberOfgDice(int numDice);
 	int getNumberOfgDice();
 
+	void setGState(string state);
+	string getGState();
+
 	//void setNumberOfDice2(int numDice);
 	//int getNumberOfDice2();
 	
