@@ -16,15 +16,15 @@ GameStateManager::~GameStateManager()
 string GameStateManager::getGameStateString()
 {
 	switch (gameState) {
-	case (GameStates::START_MENU): return "Start Menu";
-	case (GameStates::GAME_INIT): return "Game Init";
-	case (GameStates::ROLL_DICE): return "Rolling Dice";
-	case (GameStates::COINFLIP): return "Flipping Coin!";
+	case (GameStates::START_MENU): return "StartMenu";
+	case (GameStates::GAME_INIT): return "GameInit";
+	case (GameStates::ROLL_DICE): return "RollDice";
+	case (GameStates::COINFLIP): return "CoinFlip";
 	case (GameStates::TURN): return "Turn";
-	case (GameStates::CALL): return "Call it!";
-	case (GameStates::RESULT): return "Result is!";
-	case (GameStates::RETRY): return "Retry?";
-	case (GameStates::GAMEOVER): return "GameOver!";
+	case (GameStates::CALL): return "Call";
+	case (GameStates::RESULT): return "Result";
+	case (GameStates::RETRY): return "Retry";
+	case (GameStates::GAMEOVER): return "GameOver";
 	default: return  "ERROR";
 
 	}

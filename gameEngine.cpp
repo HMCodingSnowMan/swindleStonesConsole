@@ -27,71 +27,72 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 	gsm.setGameState(GameStateManager::GameStates::GAME_INIT);
 	cout << gsm.getGameStateString() << endl;
 	SetColor(DARKGREEN);
-	
+
 	cout << "We can have a quick game with 2 dice, a long game with 5 dice, or anything inbetween" << endl;
 	cin >> gameDice;
-	while (numbDiceCheck(gameDice) == false) {
+	while (!numbDiceCheck(gameDice)) {
 		cout << "We do not play with that many dice. Try again. How many dice would you like to play with?" << endl;
 		cin >> gameDice;
 	}
-	p1.setNumberOfDice(gameDice);
-	p2.setNumberOfDice(gameDice);
-	cout << p1.getNumberOfDice() << "p1" << endl;
-	cout << p2.getNumberOfDice() << "p2" << endl;
-
-
 	SetColor(RED);
 	cout << "excellent lets play the game with " << getNumberOfgDice() << " dice" << endl;
-
-	
-	gsm.setGameState(GameStateManager::GameStates::ROLL_DICE);
-	cout << gsm.getGameStateString() << endl;
-	SetColor(GREEN);
-	p1.rollTheDice();
-	p2.rollTheDice();
-	
-	gsm.setGameState(GameStateManager::GameStates::COINFLIP);
-	cout << gsm.getGameStateString() << " time to flip the coin! " << endl;
-	cout << "what do you want to call? Heads or tails? if you win you go first!" << endl;
-	string choice = "";
-	cin >> choice;
-	while (coinCheck(choice) == 1)
-	{
-		cout << "that wasn't one of the choices! Please enter heads or tails" << flush << endl;
-		cin >> choice;
-	} 
-	if (coin.coinMatch(choice)) {
-		cout << "you get to go first!" << endl;
-		p1.setFirstTurn(true);
-	}
-	else {
-		cout << "you get to go second!" << endl;
-		p1.setFirstTurn(false);
-	}
-	
-	gsm.setGameState(GameStateManager::GameStates::TURN);
-	SetColor(BLUE);
-
-
-
-
-	//this sets up the dice and logic check
-	cout << gsm.getGameStateString() << "it's time to start the turns!" << endl << flush;
-
-
-	setLogicArray(p1);
-	setLogicArray(p2);
-	cout << "you have ";
-	playerDiceInfo(p1);
-	cout << endl;
 	setGState(gsm.getGameStateString());
-	
-	//this sets up the first turn! either the comp or the player will go first!
-	firstTurnGoes(p1);
-	
-	
-	//while (gsm.getGameStateString().compare("Turn") == 0) {
-	turnPlus();
+
+	while (getGState().compare("GameOver")!=0) {
+		switch (gsm.getGameState()) {
+
+		case GameStateManager::GameStates::GAME_INIT:
+			 
+			//game init
+			setGameInit(p1, p2);
+			break;
+
+		case GameStateManager::GameStates::ROLL_DICE:
+			//setting up dice and sets logicArray! 
+			initRollAll(p1, p2);
+			gsm.setGameState(GameStateManager::GameStates::COINFLIP);
+			break;
+
+		case GameStateManager::GameStates::COINFLIP:
+			//setting up the coinFlip!
+			firstCoin();
+			gsm.setGameState(GameStateManager::GameStates::TURN);
+			break;
+
+		case GameStateManager::GameStates::TURN:
+			//starting turn!!
+			gsm.setGameState(GameStateManager::GameStates::TURN);
+			SetColor(BLUE);
+			
+			//this sets up the dice and logic check
+			cout << gsm.getGameStateString() << "it's time to start the turns!" << endl << flush;
+			playerDiceInfo(p1);
+			
+			//this sets up the first turn! either the comp or the player will go first!
+			if (turnNum <1) {
+				firstTurnGoes(p1);
+				
+			}
+			//while (gsm.getGameStateString().compare("Turn") == 0) {
+			else
+				turnPlus();
+			break;
+
+		case GameStateManager::GameStates::CALL:
+			break;
+
+
+		case GameStateManager::GameStates::RESULT:
+			break;
+
+		case GameStateManager::GameStates::RETRY:
+			break;
+
+		default:
+			cout << "hi";
+			break;
+		}//end of gState switch statements
+	}//end of while(gState!=GameOver)
 }
 
 
@@ -109,6 +110,26 @@ int GameEngine::getNumberOfgDice()
 	return gameDice;
 }
 
+void GameEngine::setTotalGameDice(Player p, Player q)
+{
+	totalGameDice = p.getNumberOfDice() + q.getNumberOfDice();
+}
+
+int GameEngine::getTotalGameDice()
+{
+	return totalGameDice;
+}
+
+void GameEngine::incTurnNum()
+{
+	turnNum++;
+}
+
+void GameEngine::resetTurnNum()
+{
+	turnNum = 0;
+}
+
 void GameEngine::setGState(string state)
 {
 	gState = state;
@@ -117,6 +138,50 @@ void GameEngine::setGState(string state)
 string GameEngine::getGState()
 {
 	return gState;
+}
+
+void GameEngine::setGameInit(Player p, Player q)
+{
+	
+	p.setNumberOfDice(gameDice);
+	q.setNumberOfDice(gameDice);
+	setTotalGameDice(p, q);
+	//cout << p.getNumberOfDice() << "p1" << endl;
+	//cout << q.getNumberOfDice() << "p2" << endl;
+}
+
+void GameEngine::initRollAll(Player p, Player q)
+{
+	gsm.setGameState(GameStateManager::GameStates::ROLL_DICE);
+	//cout << gsm.getGameStateString() << endl;
+	SetColor(GREEN);
+	p.rollTheDice();
+	q.rollTheDice();
+	setLogicArray(p);
+	setLogicArray(q);
+}
+
+void GameEngine::firstCoin()
+{
+	gsm.setGameState(GameStateManager::GameStates::COINFLIP);
+	cout << gsm.getGameStateString() << " time to flip the coin! " << endl;
+	cout << "what do you want to call? Heads or tails? if you win you go first!" << endl;
+	string choice = "";
+	cin >> choice;
+	while (coinCheck(choice) == 1)
+	{
+		cout << "that wasn't one of the choices! Please enter heads or tails" << flush << endl;
+		cin >> choice;
+	}
+	if (coin.coinMatch(choice)) {
+		cout << "you get to go first!" << endl;
+		p1.setFirstTurn(true);
+	}
+	else {
+		cout << "you get to go second!" << endl;
+		p1.setFirstTurn(false);
+	}
+
 }
 
 
@@ -128,6 +193,16 @@ bool GameEngine::numbDiceCheck(int diNum)
 	}
 	else
 		return false;
+}
+
+void GameEngine::pLoseDice(Player p)
+{
+	p.setNumberOfDice(p.getNumberOfDice() - 1);
+	if (p.getNumberOfDice() == 0) {
+		gsm.setGameState(GameStateManager::GameStates::GAMEOVER);
+	}
+	else
+		cout << p.getPName() << "lost a dice!" << endl;
 }
 
 
@@ -164,9 +239,12 @@ void GameEngine::setLogicArray(Player p)
 void GameEngine::playerDiceInfo(Player p)
 {
 	SetColor(GREEN);
+	cout << "you have ";
 	for (int i = 0; i < p.getNumberOfDice(); i++) {
 		cout << p.pDice[i].getDiceValue() << " ";
 	}
+	cout << endl;
+
 }
 
 bool GameEngine::logicCheck(int ints, int vDice)
@@ -232,9 +310,9 @@ void GameEngine::turnPlus()
 			cout << "the current bet is " << instances << " 's " << valueDice << endl;
 			break;
 		case 'c':
-			cout << "CALL time to see the results" << endl;
+			cout << "Call time to see the results" << endl;
 			logicCheck(instances, valueDice);
-			gsm.setGameState(GameStateManager::GameStates::RESULT);
+			gsm.setGameState(GameStateManager::GameStates::CALL);
 			break;
 		default:
 			cout << "that wasn't an option! try again!" << endl;

@@ -28,45 +28,52 @@ public:
 	void setNumberOfgDice(int numDice);
 	int getNumberOfgDice();
 
+	void setTotalGameDice(Player p, Player q);
+	int getTotalGameDice();
+
+	void incTurnNum();
+	void resetTurnNum();
+	
 	void setGState(string state);
 	string getGState();
 
-	//void setNumberOfDice2(int numDice);
-	//int getNumberOfDice2();
-	
-	//void setGameState();
-	//string getGameState();
-
-	//void setFirstTurn(bool turn);
-	//bool getFirstTurn();
+	void setGameInit(Player p, Player q);
+	void initRollAll(Player p, Player q);
+	void firstCoin();
 
 	bool numbDiceCheck(int diNum);
-
-	//vector<Dice> rollTheDice(vector<Dice>&);//ty jeff
+	void pLoseDice(Player p);
 
 	int coinCheck(string choice);
-	//void raise(vector<Dice>& pdice, int ints, int vDice);
+	
 	void setLogicArray(Player p);
 	void playerDiceInfo(Player p);
+	
 	bool logicCheck(int ints,int vDice);
 	void logicResult(bool logic, Player p, Player q);
+	
 	void firstTurnGoes(Player p);
 	void turnOne();//if Player is First
 	void turnOneC();//if Computer goes First
 	void turnPlus();
+
 
 	
 private:
 	//int gameState;
 	bool firstTurn;
 	//gameState can be Waiting(0) or Playing(1)
-	unsigned int gameDice;
+	int gameDice;
+	int totalGameDice;
+
+	int turnNum=0;
+
 	char e;
 	int instances = 0;
 	int valueDice = 0;
 	//unsigned int numberOfDice2;
 	//number of dice can be between 1 and 5
-	string gState;
+	string gState="gameInit";
 
 	
 
