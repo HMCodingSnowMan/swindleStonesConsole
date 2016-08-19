@@ -12,7 +12,7 @@ using namespace std;
 
 int main() {
 	GameEngine Game;
-	
+	Game.resultScreen();
 	//GameStateManager gsm;
 	//gsm.setGameState(GameStateManager::GameStates::GAME_INIT);
 	//cout << gsm.getGameState() << endl;

@@ -34,8 +34,7 @@ public:
 	void incTurnNum();
 	void resetTurnNum();
 	
-	void setGState(string state);
-	string getGState();
+	void startMenu();
 
 	void setGameInit(Player p, Player q);
 	void initRollAll(Player p, Player q);
@@ -44,20 +43,20 @@ public:
 	bool numbDiceCheck(int diNum);
 	void pLoseDice(Player p);
 
-	int coinCheck(string choice);
+	bool coinCheck(string choice);
 	
 	void setLogicArray(Player p);
 	void playerDiceInfo(Player p);
 	
-	bool logicCheck(int ints,int vDice);
-	void logicResult(bool logic, Player p, Player q);
+	bool logicCheck();
+	void logicResult(Player p, Player q);
 	
 	void firstTurnGoes(Player p);
 	void turnOne();//if Player is First
 	void turnOneC();//if Computer goes First
 	void turnPlus();
 
-
+	void resultScreen();
 	
 private:
 	//int gameState;
@@ -73,8 +72,7 @@ private:
 	int valueDice = 0;
 	//unsigned int numberOfDice2;
 	//number of dice can be between 1 and 5
-	string gState="gameInit";
-
+	
 	
 
 };

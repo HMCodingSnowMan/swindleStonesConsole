@@ -19,32 +19,20 @@ void SetColor(Color c) {
 
 GameEngine::GameEngine() //prompts user for menu and stuff
 {
-	gsm.setGameState(GameStateManager::GameStates::START_MENU);
-	cout << gsm.getGameStateString() << endl;
 
-	SetColor(DARKBLUE);
-	cout << "Welcome to the SwindleStones! I'm gonna take your money!" << endl;
-	gsm.setGameState(GameStateManager::GameStates::GAME_INIT);
-	cout << gsm.getGameStateString() << endl;
-	SetColor(DARKGREEN);
+	
 
-	cout << "We can have a quick game with 2 dice, a long game with 5 dice, or anything inbetween" << endl;
-	cin >> gameDice;
-	while (!numbDiceCheck(gameDice)) {
-		cout << "We do not play with that many dice. Try again. How many dice would you like to play with?" << endl;
-		cin >> gameDice;
-	}
-	SetColor(RED);
-	cout << "excellent lets play the game with " << getNumberOfgDice() << " dice" << endl;
-	setGState(gsm.getGameStateString());
-
-	while (getGState().compare("GameOver")!=0) {
+	while (gsm.getGameStateString().compare("GameOver")!=0) {
 		switch (gsm.getGameState()) {
+		case GameStateManager::GameStates::START_MENU:
+			startMenu();
+			gsm.setGameState(GameStateManager::GameStates::GAME_INIT);
+			break;
 
 		case GameStateManager::GameStates::GAME_INIT:
-			 
 			//game init
 			setGameInit(p1, p2);
+			gsm.setGameState(GameStateManager::GameStates::ROLL_DICE);
 			break;
 
 		case GameStateManager::GameStates::ROLL_DICE:
@@ -61,7 +49,6 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 
 		case GameStateManager::GameStates::TURN:
 			//starting turn!!
-			gsm.setGameState(GameStateManager::GameStates::TURN);
 			SetColor(BLUE);
 			
 			//this sets up the dice and logic check
@@ -79,19 +66,22 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 			break;
 
 		case GameStateManager::GameStates::CALL:
+			logicCheck();
 			break;
 
 
 		case GameStateManager::GameStates::RESULT:
+			resultScreen();
 			break;
 
 		case GameStateManager::GameStates::RETRY:
 			break;
 
 		default:
-			cout << "hi";
+			cout << "hi"<< endl;
 			break;
 		}//end of gState switch statements
+		//gsm.setGameState(GameStateManager::GameStates::GAMEOVER);
 	}//end of while(gState!=GameOver)
 }
 
@@ -130,15 +120,28 @@ void GameEngine::resetTurnNum()
 	turnNum = 0;
 }
 
-void GameEngine::setGState(string state)
+void GameEngine::startMenu()
 {
-	gState = state;
+	gsm.setGameState(GameStateManager::GameStates::START_MENU);
+	cout << gsm.getGameStateString() << endl;
+
+	SetColor(DARKBLUE);
+	cout << "Welcome to the SwindleStones! I'm gonna take your money!" << endl;
+
+
+	SetColor(DARKGREEN);
+
+	cout << "We can have a quick game with 2 dice, a long game with 5 dice, or anything inbetween" << endl;
+	cin >> gameDice;
+	while (!numbDiceCheck(gameDice)) {
+		cout << "We do not play with that many dice. Try again. How many dice would you like to play with?" << endl;
+		cin >> gameDice;
+	}
+	SetColor(RED);
+	cout << "excellent lets play the game with " << getNumberOfgDice() << " dice" << endl;
+
 }
 
-string GameEngine::getGState()
-{
-	return gState;
-}
 
 void GameEngine::setGameInit(Player p, Player q)
 {
@@ -168,7 +171,7 @@ void GameEngine::firstCoin()
 	cout << "what do you want to call? Heads or tails? if you win you go first!" << endl;
 	string choice = "";
 	cin >> choice;
-	while (coinCheck(choice) == 1)
+	while (!coinCheck(choice))
 	{
 		cout << "that wasn't one of the choices! Please enter heads or tails" << flush << endl;
 		cin >> choice;
@@ -207,26 +210,26 @@ void GameEngine::pLoseDice(Player p)
 
 
 
-int GameEngine::coinCheck(string choice)
+bool GameEngine::coinCheck(string choice)
 {
 	
-	int pass;//if the answers are either heads or tails
+	bool pass;//if the answers are either heads or tails
 
 	for (unsigned int s = 0; s < choice.length(); s++) {
 		choice[s] = tolower(choice[s]);
 	}
 	if (choice.compare("heads") == 0) {
 		
-		return pass = 0;
+		return pass = true;
 		
 	}
 	else if (choice.compare("tails") == 0) {
-		return pass = 0;
+		return pass = true;
 		
 
 	}
 	else
-		return pass = 1;
+		return pass = false;
 }
 
 void GameEngine::setLogicArray(Player p)
@@ -247,22 +250,24 @@ void GameEngine::playerDiceInfo(Player p)
 
 }
 
-bool GameEngine::logicCheck(int ints, int vDice)
+bool GameEngine::logicCheck()
 {
-	if (logicArray[vDice - 1] >= ints) {
+	if (logicArray[valueDice - 1] >= instances) {
 		cout << "good guess! the other player loses dice" << endl;
+		gsm.setGameState(GameStateManager::GameStates::RESULT);
 		return true;
 	}
 	else
 	{
 		cout << "Wrong! you lose a dice!" << endl;
+		gsm.setGameState(GameStateManager::GameStates::RESULT);
 		return false;
 	}
 }
 
-void GameEngine::logicResult(bool logic, Player p, Player q)
+void GameEngine::logicResult(Player p, Player q)
 {
-	if (logic) {
+	if (logicCheck()) {
 		q.setNumberOfDice(q.getNumberOfDice() - 1);
 	}
 	else
@@ -287,6 +292,7 @@ void GameEngine::turnOne()
 	cin >> valueDice;
 	cout << "how many of that dice are you betting?" << endl;
 	cin >> instances;
+	incTurnNum();
 }
 
 void GameEngine::turnOneC()
@@ -294,6 +300,7 @@ void GameEngine::turnOneC()
 	cout << "I'm cheating I'm going to bet " << logicArray[3] << " 4" << endl;
 	instances = logicArray[3];
 	valueDice = 4;
+	incTurnNum();
 }
 
 void GameEngine::turnPlus()
@@ -311,7 +318,7 @@ void GameEngine::turnPlus()
 			break;
 		case 'c':
 			cout << "Call time to see the results" << endl;
-			logicCheck(instances, valueDice);
+			
 			gsm.setGameState(GameStateManager::GameStates::CALL);
 			break;
 		default:
@@ -319,6 +326,37 @@ void GameEngine::turnPlus()
 			break;
 		}
 	}
+}
+
+void GameEngine::resultScreen()
+{
+	cout << "The results of last round!" << endl;
+	cout << "You now have " << p1.getNumberOfDice() << " dice left." << endl;
+	cout << "The other player has " << p2.getNumberOfDice() << " dice left" << endl;
+	cout << "Are you ready for the next round? (y/n)" << endl;
+	char a;
+	bool pass;
+	cin >> a;
+	do {
+		if (a == 'y') {
+			gsm.setGameState(GameStateManager::GameStates::GAME_INIT);
+			pass = true;
+		}
+		else if (a == 'n') {
+			gsm.setGameState(GameStateManager::GameStates::GAMEOVER);
+			pass = true;
+		}
+		else
+		{
+			cout << "I do not understand that. Do you want to do another round? (y/n)" << endl;
+			cin >> a;
+			pass = false;
+		}
+	} while (!pass);
+
+
+		
+
 }
 
 
