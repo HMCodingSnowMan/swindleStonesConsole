@@ -17,8 +17,8 @@ class GameEngine
 	//vector<Dice> p2Dice;
 
 public:
-	Player p1;
-	Player p2;
+	Player* p1 = new Player();
+	Player* p2 = new Player();
 	Coin coin;
 	GameStateManager gsm;
 	int logicArray[4] = { 0,0,0,0 };
@@ -29,35 +29,37 @@ public:
 	void setNumberOfgDice(int numDice);
 	int getNumberOfgDice();
 
-	void setTotalGameDice(Player p, Player q);
+	void setTotalGameDice(Player *p, Player *q);
 	int getTotalGameDice();
 
 	void incTurnNum();
 	void resetTurnNum();
 	
-	void startMenu();
+	void startMenu(Player *p, Player *q);
 
-	void setGameInit(Player p, Player q);
-	void initRollAll(Player p, Player q);
-	void firstCoin();
+	void setGameInit(Player* p, Player* q);
+	void initRollAll(Player* p, Player* q);
+	void firstCoin(Player *p);
 
 	bool numbDiceCheck(int diNum);
-	void pLoseDice(Player p);
+	void pLoseDice(Player *p);
 
 	bool coinCheck(string choice);
 	
-	void setLogicArray(Player p);
-	void playerDiceInfo(Player p);
+	void setLogicArray(Player *p);
+	void playerDiceInfo(Player *p);
 	
 	bool logicCheck();
-	void logicResult(Player p, Player q);
+	void logicResult(Player *p, Player *q);
 	
-	void firstTurnGoes(Player p);
+	void firstTurnGoes(Player *p);
 	void turnOne();//if Player is First
 	void turnOneC();//if Computer goes First
 	void turnPlus();
 
 	void resultScreen();
+
+	void reTryScreen();
 
 	void gameOverScreen();
 	
