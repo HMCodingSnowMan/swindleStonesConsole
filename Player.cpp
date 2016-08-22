@@ -45,10 +45,9 @@ string Player::getPName()
 	return pName;
 }
 
-vector<Dice> Player::rollTheDice()
+void Player::rollTheDice()
 {
-	cout << "I'll roll the dice!" << endl;
-
+	cout << "I'll roll the dice! " << numberOfDice <<  endl;
 	
 	for (int k = 0; k < numberOfDice; k++) {
 
@@ -58,5 +57,6 @@ vector<Dice> Player::rollTheDice()
 		pDice[k].setMaxValue(4);
 		pDice[k].diceRoll();
 	}
-	return pDice;
+	cout << pDice.size()<< " is the size of the player"<< endl;
+	
 }

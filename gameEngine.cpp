@@ -83,6 +83,7 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 		}//end of gState switch statements
 		//gsm.setGameState(GameStateManager::GameStates::GAMEOVER);
 	}//end of while(gState!=GameOver)
+	gameOverScreen();
 }
 
 
@@ -147,7 +148,9 @@ void GameEngine::setGameInit(Player p, Player q)
 {
 	
 	p.setNumberOfDice(gameDice);
+	cout << "p.setNumDice=" << p.getNumberOfDice() << endl;
 	q.setNumberOfDice(gameDice);
+	cout << "q.setNumDice=" << q.getNumberOfDice() << endl;
 	setTotalGameDice(p, q);
 	//cout << p.getNumberOfDice() << "p1" << endl;
 	//cout << q.getNumberOfDice() << "p2" << endl;
@@ -243,7 +246,10 @@ void GameEngine::playerDiceInfo(Player p)
 {
 	SetColor(GREEN);
 	cout << "you have ";
-	for (int i = 0; i < p.getNumberOfDice(); i++) {
+	int j = p.getNumberOfDice();
+	cout << j << "is the value of the dice" << endl;
+	for (int i = 0; i < j; i++) {
+		cout << "entering loop in playerDiceInfo" << endl;
 		cout << p.pDice[i].getDiceValue() << " ";
 	}
 	cout << endl;
@@ -356,6 +362,20 @@ void GameEngine::resultScreen()
 
 
 		
+
+}
+
+void GameEngine::gameOverScreen()
+{
+	for (int i = 0; i < 20; i++) {
+		cout << endl;
+	}
+
+	cout << "Game Over! Well Played! Come back and play again! " << endl;
+
+	for (int i = 0; i < 20; i++) {
+		cout << endl;
+	}
 
 }
 

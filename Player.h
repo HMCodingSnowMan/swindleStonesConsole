@@ -29,7 +29,7 @@ public:
 	void setPName(string name);
 	string getPName();
 
-	vector<Dice> rollTheDice();//ty jeff
+	void rollTheDice();//ty jeff
 
 private:
 	int numberOfDice;

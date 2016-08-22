@@ -15,10 +15,11 @@ class GameEngine
 {
 	//vector<Dice> p1Dice;
 	//vector<Dice> p2Dice;
+
+public:
 	Player p1;
 	Player p2;
 	Coin coin;
-public:
 	GameStateManager gsm;
 	int logicArray[4] = { 0,0,0,0 };
 	GameEngine();
@@ -57,6 +58,8 @@ public:
 	void turnPlus();
 
 	void resultScreen();
+
+	void gameOverScreen();
 	
 private:
 	//int gameState;
