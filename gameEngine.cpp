@@ -69,6 +69,11 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 				turnPlus();
 			break;
 
+		case GameStateManager::GameStates::CPTURN:
+			{
+				cpTurn();
+				break;
+			}
 		case GameStateManager::GameStates::CALL:
 			logicCheck();
 			break;
@@ -85,6 +90,9 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 
 		default:
 			cout << "hi"<< endl;
+			cout << "look what you've done! you've broken my game! " << endl;
+			cout << "leave!" << endl;
+			gsm.setGameState(GameStateManager::GameStates::GAMEOVER);
 			break;
 		}//end of gState switch statements
 		//gsm.setGameState(GameStateManager::GameStates::GAMEOVER);
@@ -266,6 +274,14 @@ void GameEngine::playerDiceInfo(Player *p)
 
 }
 
+void GameEngine::clearLogicArray()
+{
+	for (int i = 0; i < 4; i++) {
+		logicArray[i] = 0;
+
+	}
+}
+
 bool GameEngine::logicCheck()
 {
 	if (logicArray[valueDice - 1] >= instances) {
@@ -292,6 +308,16 @@ void GameEngine::logicResult(Player *p, Player *q)
 	}
 }
 
+void GameEngine::setTurn(int a)
+{
+	currentTurn = a;
+}
+
+int GameEngine::getTurn()
+{
+	return currentTurn;
+}
+
 void GameEngine::firstTurnGoes(Player *p)
 {
 	if (p->getFirstTurn()) {
@@ -309,6 +335,7 @@ void GameEngine::turnOne()
 	cout << "how many of that dice are you betting?" << endl;
 	cin >> instances;
 	incTurnNum();
+
 }
 
 void GameEngine::turnOneC()
@@ -331,6 +358,7 @@ void GameEngine::turnPlus()
 			cout << "what value of dice did you want to use? " << endl;
 			cin >> valueDice;
 			cout << "the current bet is " << instances << " 's " << valueDice << endl;
+			gsm.setGameState(GameStateManager::GameStates::CPTURN);
 			break;
 		case 'c':
 			cout << "Call time to see the results" << endl;
@@ -342,6 +370,25 @@ void GameEngine::turnPlus()
 			break;
 		}
 	}
+}
+
+void GameEngine::cpTurn()
+{
+	int pcNumDice = 0;
+	int pcDiceVale = 0;
+	cout << "HAI! That's a good bet. I think I will..." << endl;
+	coin.coinFlip();
+	if (coinCheck("heads")) {
+		cout << "I'm going to raise!" << endl;
+		cout << "I'll bet ";
+		gsm.setGameState(GameStateManager::GameStates::TURN);
+	}
+	else
+	{
+		cout << "Hah I'm gonna call" << endl;
+		gsm.setGameState(GameStateManager::GameStates::CALL);
+	}
+	
 }
 
 void GameEngine::resultScreen()
@@ -395,6 +442,7 @@ void GameEngine::gameOverScreen()
 	}
 
 }
+
 
 
 

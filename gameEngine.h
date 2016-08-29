@@ -48,14 +48,19 @@ public:
 	
 	void setLogicArray(Player *p);
 	void playerDiceInfo(Player *p);
+	void clearLogicArray();
 	
-	bool logicCheck();
-	void logicResult(Player *p, Player *q);
-	
+	void setTurn(int a);
+	int getTurn();
+
 	void firstTurnGoes(Player *p);
 	void turnOne();//if Player is First
 	void turnOneC();//if Computer goes First
 	void turnPlus();
+	void cpTurn();//making the computer turn
+
+	bool logicCheck();
+	void logicResult(Player *p, Player *q);
 
 	void resultScreen();
 
@@ -63,13 +68,16 @@ public:
 
 	void gameOverScreen();
 	
+
+
+	
 private:
 	//int gameState;
 	bool firstTurn;
 	//gameState can be Waiting(0) or Playing(1)
 	int gameDice;
 	int totalGameDice;
-
+	int currentTurn; // player is 0, pc is 1;
 	int turnNum=0;
 
 	char e;
