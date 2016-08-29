@@ -359,6 +359,7 @@ void GameEngine::turnPlus()
 			cin >> valueDice;
 			cout << "the current bet is " << instances << " 's " << valueDice << endl;
 			gsm.setGameState(GameStateManager::GameStates::CPTURN);
+			setTurn(0);
 			break;
 		case 'c':
 			cout << "Call time to see the results" << endl;
@@ -382,6 +383,7 @@ void GameEngine::cpTurn()
 		cout << "I'm going to raise!" << endl;
 		cout << "I'll bet ";
 		gsm.setGameState(GameStateManager::GameStates::TURN);
+		setTurn(1);
 	}
 	else
 	{
@@ -393,7 +395,7 @@ void GameEngine::cpTurn()
 
 void GameEngine::resultScreen()
 {
-	cout << "The results of last round!" << endl;
+	cout << "Welcome to the results of last round!" << endl;
 	//cout << "You now have " << p1.getNumberOfDice() << " dice left." << endl;
 	//cout << "The other player has " << p2.getNumberOfDice() << " dice left" << endl;
 	cout << "Are you ready for the next round? (y/n)" << endl;
@@ -425,6 +427,7 @@ void GameEngine::resultScreen()
 void GameEngine::reTryScreen()
 {
 	cout << "going in for the next round!" << endl;
+	clearLogicArray();
 
 	gsm.setGameState(GameStateManager::GameStates::GAME_INIT);
 }
