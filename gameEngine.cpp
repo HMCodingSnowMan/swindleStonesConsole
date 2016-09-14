@@ -53,7 +53,7 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 
 		case GameStateManager::GameStates::TURN:
 			//starting turn!!
-			SetColor(BLUE);
+			SetColor(RED);
 			
 			//this sets up the dice and logic check
 			//cout << gsm.getGameStateString() << "it's time to start the turns!" << endl << flush;
@@ -89,6 +89,7 @@ GameEngine::GameEngine() //prompts user for menu and stuff
 			break;
 
 		default:
+			SetColor(RED);
 			cout << "hi"<< endl;
 			cout << "look what you've done! you've broken my game! " << endl;
 			cout << "leave!" << endl;
@@ -149,8 +150,21 @@ void GameEngine::startMenu(Player *p, Player *q)
 	cout << "We can have a quick game with 2 dice, a long game with 5 dice, or anything inbetween" << endl;
 	cin >> gameDice;
 	while (!numbDiceCheck(gameDice)) {
-		cout << "We do not play with that many dice. Try again. How many dice would you like to play with?" << endl;
-		cin >> gameDice;
+		if (cin.fail()) {
+			cout << "that doesn't work please put an int between 2 and 5" << endl;
+			cin.clear();
+			cout << "I cleared it! " << endl;
+			cin.ignore(256, '\n');
+			cin >> gameDice;
+
+		}
+		else {
+
+
+			cout << "We do not play with that many dice. Try again. How many dice would you like to play with?" << endl;
+
+			cin >> gameDice;
+		}
 	}
 	SetColor(RED);
 	cout << "excellent lets play the game with " << getNumberOfgDice() << " dice" << endl;
@@ -211,10 +225,12 @@ void GameEngine::firstCoin(Player *p)
 
 bool GameEngine::numbDiceCheck(int diNum)
 {
+	
 	if ((diNum >= 2) && (diNum <= 5)) {
 		return true;
 	}
 	else
+
 		return false;
 }
 
@@ -261,7 +277,7 @@ void GameEngine::setLogicArray(Player *p)
 
 void GameEngine::playerDiceInfo(Player *p)
 {
-	SetColor(GREEN);
+	SetColor(BLUE);
 	
 	int j = p->getNumberOfDice();
 	cout << j << "is the value of the dice" << endl;

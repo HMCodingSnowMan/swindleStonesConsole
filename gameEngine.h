@@ -7,6 +7,7 @@
 #include <string>
 #include "Coin.h"
 #include "Player.h"
+#include "TurnManager.h"
 
 
 using namespace std;
@@ -21,6 +22,7 @@ public:
 	Player* p2 = new Player();
 	Coin coin;
 	GameStateManager gsm;
+	TurnManager *tm = new TurnManager();
 	int logicArray[4] = { 0,0,0,0 };
 	GameEngine();
 	~GameEngine();
@@ -32,8 +34,7 @@ public:
 	void setTotalGameDice(Player *p, Player *q);
 	int getTotalGameDice();
 
-	void incTurnNum();
-	void resetTurnNum();
+	
 	
 	void startMenu(Player *p, Player *q);
 
@@ -50,6 +51,9 @@ public:
 	void playerDiceInfo(Player *p);
 	void clearLogicArray();
 	
+	void incTurnNum();
+	void resetTurnNum();
+
 	void setTurn(int a);
 	int getTurn();
 

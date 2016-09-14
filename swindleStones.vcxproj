@@ -152,6 +152,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Source.cpp" />
+    <ClCompile Include="TurnManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Coin.h" />
@@ -159,6 +160,7 @@
     <ClInclude Include="gameEngine.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="TurnManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
