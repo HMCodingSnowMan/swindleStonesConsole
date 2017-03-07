@@ -23,7 +23,7 @@ public:
 	//GameOver: prompts Gameover ROll credits and leave
 	
 	
-	//Setters and getters :D
+	//Setters and getters 
 	//void setGameState(GameStates a);
 
 	string getGameStateString();

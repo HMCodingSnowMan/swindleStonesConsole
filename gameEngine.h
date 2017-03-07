@@ -35,41 +35,55 @@ public:
 	int getTotalGameDice();
 
 	
-	
+	//prompts the user for starting the game
 	void startMenu(Player *p, Player *q);
 
 	void setGameInit(Player* p, Player* q);
+	//sets the dice
 	void initRollAll(Player* p, Player* q);
+	
+	//prompts the user for the coinflip
 	void firstCoin(Player *p);
+	bool coinCheck(string choice);
 
+	//checks the users dice and who loses it.
 	bool numbDiceCheck(int diNum);
 	void pLoseDice(Player *p);
 
-	bool coinCheck(string choice);
-	
+
+	//creates the arrays of dice for the players
 	void setLogicArray(Player *p);
 	void playerDiceInfo(Player *p);
 	void clearLogicArray();
 	
+	//checks the turnnumber
 	void incTurnNum();
 	void resetTurnNum();
 
+
 	void setTurn(int a);
 	int getTurn();
-
+	
+	//special for first turn settings
 	void firstTurnGoes(Player *p);
 	void turnOne();//if Player is First
 	void turnOneC();//if Computer goes First
+	//everyturn after
+
 	void turnPlus();
 	void cpTurn();//making the computer turn
 
+	//checks the call from either player
 	bool logicCheck();
 	void logicResult(Player *p, Player *q);
 
+	//shows result screen
 	void resultScreen();
 
+	//prompts to play again
 	void reTryScreen();
 
+	//prompts to end game
 	void gameOverScreen();
 	
 
